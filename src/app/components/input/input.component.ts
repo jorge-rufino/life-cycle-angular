@@ -15,8 +15,17 @@ export class InputComponent implements OnInit {
   ngOnInit(): void { }
 
   adicionarItem(): void {
-    this.listaService.adicionarItemNaLista(this.valorItem);
-    this.limparCampo();
+    if(this.valorItem) {
+      if(this.valorItem.trim().length > 0 ){
+        this.listaService.adicionarItemNaLista(this.valorItem);
+        this.limparCampo();
+      } else {
+        alert('Não é possível salvar um item em branco');
+        this.limparCampo();
+      }
+    } else {
+      alert('Digite o nome do item');
+    }
   }
 
   limparCampo(){
