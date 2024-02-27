@@ -5,7 +5,7 @@
     <div class="lista">
       <h4 class="title-list">Lista de Compras</h4>
       <div *ngFor="let itemDaLista of listaDeCompras">
-        <app-item [item]="itemDaLista"></app-item>
+        <app-item [item]="itemDaLista" (emitindoItemParaEditar)="editarItem($event)"></app-item>
       </div>
     </div>
   </div>
