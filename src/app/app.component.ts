@@ -16,6 +16,8 @@ export class AppComponent implements OnInit{
   // "!" para iniciar como um Array vazio
   listaDeCompras! : Item[];
 
+  itemParaSerEditado!: Item;
+
   constructor(private listaService: ListaDeCompraService) { }
 
   ngOnInit(): void {
@@ -24,6 +26,6 @@ export class AppComponent implements OnInit{
   }
 
   editarItem(item: Item){
-    console.log(item);
+    this.itemParaSerEditado = item;
   }
 }
