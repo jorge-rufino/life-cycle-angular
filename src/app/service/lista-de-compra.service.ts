@@ -32,7 +32,7 @@ export class ListaDeCompraService {
   adicionarItemNaLista(nomeItem: string){
     const item = this.criarItem(nomeItem);
     this.listaDeCompra.push(item);
-    this.atualizarLocalStorage();
+    //this.atualizarLocalStorage();
   }
 
   editarItemNaLista(itemAntigo: Item, nomeEditadoDoItem: string){
@@ -48,9 +48,10 @@ export class ListaDeCompraService {
     //e o terceiro parametro é o que queremos adicionar na lista.
     //Os indices iniciam com 0, e como os IDs da lista são 1 a mais que o indice, diminuímos em 1.
     this.listaDeCompra.splice(Number(itemAntigo.id)-1, 1, itemEditado);
-    this.atualizarLocalStorage();
+    //this.atualizarLocalStorage();
   }
 
+  //Este método está sendo chamado no AppComponent através do DoCheck
   atualizarLocalStorage(){
     localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
   }

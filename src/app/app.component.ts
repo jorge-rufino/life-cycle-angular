@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Item } from './interfaces/iItem';
 import { ListaDeCompraService } from './service/lista-de-compra.service';
 
@@ -10,7 +10,7 @@ import { ListaDeCompraService } from './service/lista-de-compra.service';
 
 //Implementamos o "OnInit" para que ele faça o carregamento da lista.
 //O método "ngOnInit" é o primeiro método a ser executado. Todos os métodos do ciclo de vida tem o prefixo "ng"
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, DoCheck{
   title = 'app-lista-de-compras';
 
   // "!" para iniciar como um Array vazio
@@ -27,5 +27,14 @@ export class AppComponent implements OnInit{
 
   editarItem(item: Item){
     this.itemParaSerEditado = item;
+  }
+
+  //Este método diferentemente do "NgOnit" que é chamado somente uma vez na inicialização do componente, e do "NgOnChange"
+  //que é chamado somente quando há alteração dos dados de entrada, o "NgDoCheck" é executado em qualquer alteração do
+  //componente, inclusive alterações dos componentes filhos tb.
+  //Tomar cuidado pois como ele é chamado muitas vezes, pode acabar compromentendo a perfomance
+  ngDoCheck(): void {
+    console.log('DoCheck foi chamado.')
+    this.listaService.atualizarLocalStorage();
   }
 }
