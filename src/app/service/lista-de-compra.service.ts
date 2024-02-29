@@ -6,29 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class ListaDeCompraService {
 
-  private listaDeCompra: Item[] = [
-    {
-      "id": 1,
-      "nome": "Queijo prato",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": false
-    },
-    {
-      "id": 2,
-      "nome": "Leite integral",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": false
-    },
-    {
-      "id": 3,
-      "nome": "Mamão papaia",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": true
-    },
-  ]
+  private listaDeCompra: Item[];
 
   constructor() {
-    console.log('Instanciando dependências necessárias para o serviço.');
+    this.listaDeCompra = JSON.parse(localStorage.getItem('itens') || '[]');
   }
 
   getListaDeCompra(){
@@ -51,6 +32,7 @@ export class ListaDeCompraService {
   adicionarItemNaLista(nomeItem: string){
     const item = this.criarItem(nomeItem);
     this.listaDeCompra.push(item);
+    this.atualizarLocalStorage();
   }
 
   editarItemNaLista(itemAntigo: Item, nomeEditadoDoItem: string){
@@ -66,5 +48,10 @@ export class ListaDeCompraService {
     //e o terceiro parametro é o que queremos adicionar na lista.
     //Os indices iniciam com 0, e como os IDs da lista são 1 a mais que o indice, diminuímos em 1.
     this.listaDeCompra.splice(Number(itemAntigo.id)-1, 1, itemEditado);
+    this.atualizarLocalStorage();
+  }
+
+  atualizarLocalStorage(){
+    localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
   }
 }
