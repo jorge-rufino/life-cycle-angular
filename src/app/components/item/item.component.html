@@ -4,12 +4,13 @@
   type="checkbox"
   name="comprado"
   id="comprado"
-  [checked]="item.comprado">
-<p class="description">{{item.nome}}</p>
+  [checked]="item.comprado"
+  (change)="comprarItem()">
+<p class="description" [class.line-through]="item.comprado">{{item.nome}}</p>
 
 <!-- Só irá mostrar os botões para exclui ou editar nos itens que não estão "Comprados"-->
 <div class="d-contents" *ngIf="!item.comprado">
-  <fa-icon class="delete-icon" [icon]="faTrash" ></fa-icon>
+  <fa-icon class="delete-icon" (click)="deletarItem()" [icon]="faTrash" ></fa-icon>
   <fa-icon class="edit-icon" (click)="editarItem()" [icon]="faPen" ></fa-icon>
 </div>
 <small class="date">{{item.data}}</small>

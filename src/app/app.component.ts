@@ -37,4 +37,11 @@ export class AppComponent implements OnInit, DoCheck{
     console.log('DoCheck foi chamado.')
     this.listaService.atualizarLocalStorage();
   }
+
+  deletarItem(id: number) {
+    console.log(id)
+    const index = this.listaDeCompras.findIndex((item)=>item.id === id);
+    //A partir do indice/index, exclua 1 item
+    this.listaDeCompras.splice(index, 1);
+  }
 }
