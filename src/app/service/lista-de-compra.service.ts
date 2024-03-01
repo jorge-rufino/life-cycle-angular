@@ -6,18 +6,18 @@ import { Injectable } from '@angular/core';
 })
 export class ListaDeCompraService {
 
-  private listaDeCompra: Item[];
+  private listaDeCompras: Item[];
 
   constructor() {
-    this.listaDeCompra = JSON.parse(localStorage.getItem('itens') || '[]');
+    this.listaDeCompras = JSON.parse(localStorage.getItem('itens') || '[]');
   }
 
   getListaDeCompra(){
-    return this.listaDeCompra;
+    return this.listaDeCompras;
   }
 
   private criarItem(nomeItem: string): Item {
-    const id = this.listaDeCompra.length + 1;
+    const id = Date.now();
 
     const novoItem: Item = {
       id: id,
@@ -31,7 +31,7 @@ export class ListaDeCompraService {
 
   adicionarItemNaLista(nomeItem: string){
     const item = this.criarItem(nomeItem);
-    this.listaDeCompra.push(item);
+    this.listaDeCompras.push(item);
     //this.atualizarLocalStorage();
   }
 
@@ -47,12 +47,13 @@ export class ListaDeCompraService {
     //O segundo parametro é a quantidade de items que queremos remover a partir do indice selecionado,
     //e o terceiro parametro é o que queremos adicionar na lista.
     //Os indices iniciam com 0, e como os IDs da lista são 1 a mais que o indice, diminuímos em 1.
-    this.listaDeCompra.splice(Number(itemAntigo.id)-1, 1, itemEditado);
+    const index = this.listaDeCompras.findIndex((item)=>item.id === itemAntigo.id);
+    this.listaDeCompras.splice(index, 1, itemEditado);
     //this.atualizarLocalStorage();
   }
 
   //Este método está sendo chamado no AppComponent através do DoCheck
   atualizarLocalStorage(){
-    localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
+    localStorage.setItem('itens', JSON.stringify(this.listaDeCompras));
   }
 }
